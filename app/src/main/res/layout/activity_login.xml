@@ -1,101 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="#FFFFFF"
-tools:context=".LoginActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EDEDED"
+    android:backgroundTint="@color/browser_actions_bg_grey"
+    tools:context=".LoginActivity">
 
-<ImageView
-    android:id="@+id/imageView4"
-    android:layout_width="349dp"
-    android:layout_height="95dp"
-    android:src="@drawable/background"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.025" />
-
-<LinearLayout
-    android:id="@+id/linearLayout2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="200dp"
-    android:orientation="vertical"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    <ImageView
+        android:id="@+id/resim1"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="147dp"
+        app:srcCompat="@drawable/qrcode"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="67dp" />
 
     <EditText
-        android:id="@+id/eKullaniciAdi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/etName"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="255dp"
+        android:layout_marginEnd="110dp"
+        android:background="#11000000"
+
         android:ems="10"
+        android:fontFamily="@font/anton"
         android:hint="Kullanıcı Adı"
         android:inputType="textPersonName"
-        android:textColor="#222121"
-        android:textColorHint="#222121" />
+        android:textSize="16dp"
+        tools:layout_editor_absoluteX="110dp"
+        tools:layout_editor_absoluteY="389dp" />
 
     <EditText
-        android:id="@+id/eSifre"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/etPassword"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="324dp"
+        android:layout_marginEnd="111dp"
+        android:background="#11000000"
+
         android:ems="10"
+        android:fontFamily="@font/anton"
         android:hint="Şifre"
-        android:inputType="textPersonName|textPassword"
-        android:textColor="#222121"
-        android:textColorHint="#222121" />
+        android:inputType="textPassword"
+        android:textSize="16dp"
+        tools:layout_editor_absoluteX="110dp"
+        tools:layout_editor_absoluteY="471dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <Button
+        android:id="@+id/btnGiris"
+        android:layout_width="198dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginBottom="223dp"
+        android:background="@drawable/rounded_buton"
 
-        <Button
-            android:id="@+id/btnGiris"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="#369E3A"
-            android:onClick="btnGiris"
-            android:padding="10dp"
-            android:text="Giriş"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
+        android:drawableLeft="@drawable/true_check"
+        android:fontFamily="@font/anton"
+        android:onClick="btnGiris"
+        android:text="Giriş Yap"
+        android:textColor="#FFFF" />
 
-        <Button
-            android:id="@+id/btnKayıtOl"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="#DA9A3D"
-            android:onClick="btnKaydol"
-            android:padding="10dp"
-            android:text="Kaydol"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnKaydol"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginBottom="162dp"
+        android:background="@drawable/rounded_buton2"
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:drawableLeft="@android:drawable/ic_menu_add"
+        android:fontFamily="@font/anton"
 
-        <Button
-            android:id="@+id/btnKayıtOl"
-            android:layout_width="248dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="#9A6210"
-            android:onClick="btnKayıtOl"
-            android:padding="10dp"
-            android:text="Kayıt Ol"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp" />
-    </LinearLayout>
-</LinearLayout>
+        android:onClick="btnKaydol"
+        android:text="Kayıt Ol"
+        android:textColor="#FFFF" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/btnKaydol2"
+        android:layout_width="204dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginBottom="95dp"
+
+        android:drawableLeft="@android:drawable/ic_menu_add"
+        android:fontFamily="@font/anton"
+
+        android:onClick="btnKayıtOl"
+        android:text="Kayıt Ol sayfası"
+        android:textColor="#FFFF" />
+
+    <ImageView
+        android:layout_width="41dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="258dp"
+        android:layout_marginBottom="52dp"
+         />
+
+    <ImageView
+        android:id="@+id/resim2"
+        android:layout_width="41dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="196dp"
+        android:layout_marginBottom="52dp"
+        />
+
+    <ImageView
+        android:id="@+id/resim3"
+        android:layout_width="41dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="134dp"
+        android:layout_marginBottom="52dp"
+       />
+</RelativeLayout>

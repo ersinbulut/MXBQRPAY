@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 
@@ -33,19 +34,23 @@ public class Veritabani extends SQLiteOpenHelper {
 
     }
 
-    public long filmEkleParametrleri(String ad, String id, String tip, String yil, String poster){
+    public long personelEkleParametrleri(int id, String adsoyad, String tc, String sicilno, String birim, String adres, String telefon, String lokasyon, String kullanici_adi, String kullanici_sifre){
         ContentValues veriler = new ContentValues();
-        veriler.put("imdbID" , id);
-        veriler.put("Title", ad);
-        veriler.put("Type", tip);
-        veriler.put("Year",yil);
-        veriler.put("Poster", poster);
+        veriler.put("id" , id);
+        veriler.put("adsoyad", adsoyad);
+        veriler.put("tc", tc);
+        veriler.put("birim",birim);
+        veriler.put("adres", adres);
+        veriler.put("telefon", telefon);
+        veriler.put("lokasyon", lokasyon);
+        veriler.put("kullanici_adi", kullanici_adi);
+        veriler.put("kullanici_sifre", kullanici_sifre);
 
         SQLiteDatabase db = getWritableDatabase();
-        long cevap = db.insert("filmler", null, veriler);
+        long cevap = db.insert("personels", null, veriler);
         return cevap;
     }
-
+    /*
     public long personelEkle(Personel yeniPersonel){
         ContentValues veriler = new ContentValues();
         veriler.put("adsoyad", yeniPersonel.getAdsoyad());
@@ -62,7 +67,7 @@ public class Veritabani extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         long cevap = db.insert("personels", null, veriler);
         return cevap;
-    }
+    }*/
 
     public ArrayList<Personel> personelleriListele(){
         ArrayList<Personel> personeller = new ArrayList<>();
@@ -88,5 +93,23 @@ public class Veritabani extends SQLiteOpenHelper {
         }
         c.close();
         return personeller;
+    }
+
+    public long personelEkle(EditText edAdSoyad, EditText edTCKimlik, EditText edSicilNo, EditText edBirim, EditText edAdres, EditText edTelefon, EditText edLokasyon, EditText edKullaniciAdi, EditText edSifre) {
+        ContentValues veriler = new ContentValues();
+        veriler.put("adsoyad", String.valueOf(edAdSoyad.getText()));
+        veriler.put("tc", String.valueOf(edTCKimlik));
+        veriler.put("sicilno", String.valueOf(edSicilNo));
+        veriler.put("birim", String.valueOf(edBirim));
+        veriler.put("adres", String.valueOf(edAdres));
+        veriler.put("telefon", String.valueOf(edTelefon));
+        veriler.put("lokasyon", String.valueOf(edLokasyon));
+        //kullanıcı giriş bilgileri
+        veriler.put("kullanici_adi", String.valueOf(edKullaniciAdi));
+        veriler.put("kullanici_sifre", String.valueOf(edSifre));
+
+        SQLiteDatabase db = getWritableDatabase();
+        long cevap = db.insert("personels", null, veriler);
+        return cevap;
     }
 }

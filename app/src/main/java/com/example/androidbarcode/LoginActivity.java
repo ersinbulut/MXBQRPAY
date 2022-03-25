@@ -25,8 +25,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        edittext_kullanici = findViewById(R.id.eKullaniciAdi);
-        edittext_sifre = findViewById(R.id.eSifre);
+        edittext_kullanici = findViewById(R.id.etName);
+        edittext_sifre = findViewById(R.id.etPassword);
 
         mAuth=FirebaseAuth.getInstance();
         mUser=mAuth.getCurrentUser();
