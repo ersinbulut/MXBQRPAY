@@ -6,11 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.androidbarcode.model.Personel;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,7 +39,7 @@ public class OzelAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.activity_settings, parent, false);
 
-        EditText edAdSoyad = convertView.findViewById(R.id.edAdSoyad);
+        EditText edAdSoyad = convertView.findViewById(R.id.edTC);
         EditText edTCKimlik = convertView.findViewById(R.id.edTCKimlik);
         EditText edSicilNo = convertView.findViewById(R.id.edSicilNo);
         EditText edBirim = convertView.findViewById(R.id.edBirim);

@@ -1,12 +1,9 @@
 package com.example.androidbarcode;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,14 +11,8 @@ import android.widget.Toast;
 
 import com.example.androidbarcode.database.Veritabani;
 import com.example.androidbarcode.model.Personel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.util.UUID;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText AdSoyad,TCKimlik,SicilNo,Birim,Adres,Telefon,Lokasyon,KullaniciAdi,Sifre;
@@ -31,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        AdSoyad=findViewById(R.id.edAdSoyad);
+        AdSoyad=findViewById(R.id.edTC);
         TCKimlik=findViewById(R.id.edTCKimlik);
         SicilNo=findViewById(R.id.edSicilNo);
         Birim=findViewById(R.id.edBirim);

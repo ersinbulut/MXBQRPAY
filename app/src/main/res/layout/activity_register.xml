@@ -41,7 +41,7 @@ tools:context=".RegisterActivity">
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edAdSoyad"
+        android:id="@+id/edTC"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"

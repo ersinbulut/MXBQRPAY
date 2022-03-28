@@ -5,12 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.androidbarcode.R;
 import com.example.androidbarcode.model.Personel;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -44,7 +42,7 @@ public class OzelAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.activity_register, parent, false);
 
-        TextView adsoyad = convertView.findViewById(R.id.edAdSoyad);
+        TextView adsoyad = convertView.findViewById(R.id.edTC);
         TextView tc = convertView.findViewById(R.id.edTCKimlik);
         TextView sicilno = convertView.findViewById(R.id.edSicilNo);
         TextView birim = convertView.findViewById(R.id.edBirim);
