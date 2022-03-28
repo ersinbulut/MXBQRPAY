@@ -45,7 +45,7 @@ public class Fragment3 extends Fragment {
         email=view.findViewById(R.id.edKullaniciAdi);
         //sifre=view.findViewById(R.id.edSifre);
 
-        email.setText(": "+ mUser.getEmail());
+        email.setText(mUser.getEmail());
         //sifre.setText(": "+"******");
 
         return view;

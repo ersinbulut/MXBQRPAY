@@ -17,7 +17,7 @@ public class Personel implements Serializable {
     private String kullanici_sifre;
 
 
-    public Personel() {
+    public Personel(String edKey, String edAdSoyad, String edTCKimlik, String edSicilNo, String edBirim, String edAdres, String edTelefon, String edLokasyon, String edKullaniciAdi, String edSifre) {
     }
 
     public Personel(int id, String adsoyad, String tc, String sicilno, String birim, String adres, String telefon, String lokasyon, String kullanici_adi, String kullanici_sifre) {
@@ -34,6 +34,16 @@ public class Personel implements Serializable {
     }
 
     public Personel(int id, Object o, String adsoyad, String tc, String sicilno, String birim, String adres, String telefon, String lokasyon, String kullanici_adi, String kullanici_sifre) {
+        this.id=id;
+        this.adsoyad = adsoyad;
+        this.tc = tc;
+        this.sicilno = sicilno;
+        this.birim = birim;
+        this.adres = adres;
+        this.telefon = telefon;
+        this.lokasyon = lokasyon;
+        this.kullanici_adi = kullanici_adi;
+        this.kullanici_sifre = kullanici_sifre;
     }
 
     public int getId() {

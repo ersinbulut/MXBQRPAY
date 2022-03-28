@@ -1,5 +1,6 @@
 package com.example.androidbarcode;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -7,17 +8,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androidbarcode.database.Veritabani;
 import com.example.androidbarcode.model.Personel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText AdSoyad,TCKimlik,SicilNo,Birim,Adres,Telefon,Lokasyon,KullaniciAdi,Sifre;
+    TextView edkey;
     FirebaseDatabase db;
     DatabaseReference ref;
+    //Veritabani con;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,22 +39,21 @@ public class RegisterActivity extends AppCompatActivity {
         Lokasyon=findViewById(R.id.edLokasyon);
         KullaniciAdi=findViewById(R.id.edKullaniciAdi);
         Sifre=findViewById(R.id.edSifre);
+        edkey=findViewById(R.id.edKey);
 
-        db=FirebaseDatabase.getInstance();
-        ref=db.getReference("personeller");
-    }
-    public void personelEkle(View v){
 
-        Veritabani vt = new Veritabani(RegisterActivity.this);
-        vt.personelEkle(AdSoyad,TCKimlik,SicilNo,Birim,Adres,Telefon,Lokasyon,KullaniciAdi,Sifre);
-        Toast.makeText(RegisterActivity.this, "Personel eklendi.", Toast.LENGTH_SHORT).show();
-        vt.close();
-        Intent i = new Intent(this,MainActivity.class);
-        startActivity(i);
+        db= FirebaseDatabase.getInstance();
+        ref=db.getReference("Personels");
     }
 
+    public void btnPersonelEkle(View view){
 
-    public void btnEkle(View view){
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue("Hello, World!");
+        String edKey=edkey.getText().toString();
         String edAdSoyad=AdSoyad.getText().toString();
         String edTCKimlik=TCKimlik.getText().toString();
         String edSicilNo=SicilNo.getText().toString();
@@ -57,24 +64,13 @@ public class RegisterActivity extends AppCompatActivity {
         String edKullaniciAdi=KullaniciAdi.getText().toString();
         String edSifre=Sifre.getText().toString();
 
-        final Personel yeniPersonel=new Personel(1,edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
+        Personel yeniPersonel=new Personel(edKey,edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
 
-        //Firabase ekleme kodları
-        ContentValues veriler = new ContentValues();
-        veriler.put("AdSoyad",edAdSoyad);
-        veriler.put("TCKimlik",edTCKimlik);
-        veriler.put("SicilNo",edSicilNo);
-        veriler.put("Birim",edBirim);
-        veriler.put("Adres",edAdres);
-        veriler.put("Telefon",edTelefon);
-        veriler.put("Lokasyon",edLokasyon);
-        veriler.put("KullaniciAdi",edKullaniciAdi);
-        veriler.put("Sifre",edSifre);
-        /*
-        long cevap = db.insert("personels",null,veriler);//YENİ EKLENEN KAYDIN ID SİNİ CEVAP OLARAK VERİR
-        //HATA OLURSA -1 SONUCU VERİR
-        return cevap;*/
 
+        Veritabani vt=new Veritabani(this);
+        vt.prsEkle(yeniPersonel);
+        vt.close();
+        Toast.makeText(this, "Personel Eklendi..", Toast.LENGTH_SHORT).show();
 
     }
 }
