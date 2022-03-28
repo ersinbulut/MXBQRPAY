@@ -222,7 +222,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/edSifre"
+                android:id="@+id/edKullaniciAdi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -244,7 +244,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/edKullaniciAdi"
+                android:id="@+id/edSifre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -266,7 +266,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/edSifre"
+                android:id="@+id/edSifreTekrar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
