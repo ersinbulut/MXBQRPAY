@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override//Giriş başarılı ise
                     public void onSuccess(AuthResult authResult) {
                         Toast.makeText(LoginActivity.this, "Giriş Başarılı", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(LoginActivity.this, MainMenuActivity.class);
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         i.putExtra("kullanici_adi", edittext_kullanici.getText().toString());
                         i.putExtra("kullanici_sifre", edittext_sifre.getText().toString());
                         startActivity(i);
