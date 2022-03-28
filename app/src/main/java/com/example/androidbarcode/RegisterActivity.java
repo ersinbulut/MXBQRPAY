@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseDatabase db;
     DatabaseReference ref;
     //Veritabani con;
+    SharedPreferences ayarlar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +43,26 @@ public class RegisterActivity extends AppCompatActivity {
         Sifre=findViewById(R.id.edSifre);
         edkey=findViewById(R.id.edKey);
 
+        ayarlar=getSharedPreferences("ayarlar",MODE_PRIVATE);
+
 
         db= FirebaseDatabase.getInstance();
         ref=db.getReference("Personels");
+
+        AdSoyad.setText(ayarlar.getString("adsoyad",""));
+    }
+
+    public void Ekle(View v){
+        ayarlar.edit().putString("adsoyad",AdSoyad.getText().toString()).apply();
+        ayarlar.edit().putString("TCKimlik",AdSoyad.getText().toString()).apply();
+        ayarlar.edit().putString("SicilNo",AdSoyad.getText().toString()).apply();
+        ayarlar.edit().putString("Birim",AdSoyad.getText().toString()).apply();
+        ayarlar.edit().putString("Adres",AdSoyad.getText().toString()).apply();
+        ayarlar.edit().putString("Telefon",AdSoyad.getText().toString()).apply();
+        ayarlar.edit().putString("Lokasyon",AdSoyad.getText().toString()).apply();
+        ayarlar.edit().putString("KullaniciAdi",AdSoyad.getText().toString()).apply();
+        ayarlar.edit().putString("Sifre",AdSoyad.getText().toString()).apply();
+
     }
 
     public void btnPersonelEkle(View view){
