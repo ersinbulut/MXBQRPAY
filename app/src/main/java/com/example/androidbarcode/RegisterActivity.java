@@ -22,8 +22,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        AdSoyad=findViewById(R.id.edTC);
-        TCKimlik=findViewById(R.id.edTCKimlik);
+        AdSoyad=findViewById(R.id.edAdSoyad);
+        TCKimlik=findViewById(R.id.edTCKimlikNo);
         SicilNo=findViewById(R.id.edSicilNo);
         Birim=findViewById(R.id.edBirim);
         Adres=findViewById(R.id.edAdres);

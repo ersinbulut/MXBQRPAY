@@ -15,7 +15,7 @@
         android:background="@drawable/rounded_buton"
         android:fontFamily="@font/arimo"
         android:gravity="bottom|center"
-        android:text="TextView"
+        android:text="AYARLAR"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:src="@drawable/qrcode"
-             />
+            />
 
         <TextView
             android:id="@+id/textView3"
@@ -47,14 +47,17 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="AD SOYAD"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edAdSoyad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
                 android:layout_weight="1"
                 android:ems="10"
+                android:background="#11000000"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -68,7 +71,7 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="TC KİMLİK "
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edTCKimlikNo"
@@ -76,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:background="#11000000"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -88,8 +92,8 @@
             <TextView
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:text=" SİCİL NO"
-                android:textSize="24sp" />
+                android:text="SİCİL NO"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edSicilNo"
@@ -97,6 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:background="#11000000"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -110,7 +115,7 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="BİRİM"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edBirim"
@@ -118,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:background="#11000000"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -131,7 +137,7 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="ADRES"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edAdres"
@@ -139,6 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:background="#11000000"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -152,7 +159,7 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="TELEFON"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edTelefon"
@@ -160,6 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:background="#11000000"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -173,7 +181,7 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:text="LOKASYON"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edLokasyon"
@@ -181,6 +189,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                android:background="#11000000"
                 android:inputType="textPersonName" />
 
         </LinearLayout>
@@ -191,7 +200,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginTop="350dp"
         android:layout_marginRight="30dp"
         android:orientation="vertical">
 
@@ -202,6 +211,28 @@
             android:text="ERİŞİM (LOGİN)" />
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="KULLANICI ADI"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/edSifre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#11000000"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
@@ -209,14 +240,15 @@
             <TextView
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:text="KULLANICI"
-                android:textSize="24sp" />
+                android:text="ŞİFRE"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edKullaniciAdi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#11000000"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
@@ -230,14 +262,15 @@
             <TextView
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:text="ŞİFRE "
-                android:textSize="24sp" />
+                android:text="ŞİFRE TEKRAR"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edSifre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="#11000000"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
@@ -250,8 +283,9 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="560dp"
+        android:layout_marginTop="500dp"
         android:background="#22B628"
+        android:onClick="btnEkle"
         android:text="KAYDET" />
 
 </FrameLayout>

@@ -42,8 +42,8 @@ public class OzelAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = layoutInflater.inflate(R.layout.activity_register, parent, false);
 
-        TextView adsoyad = convertView.findViewById(R.id.edTC);
-        TextView tc = convertView.findViewById(R.id.edTCKimlik);
+        TextView adsoyad = convertView.findViewById(R.id.edTCKimlikNo);
+        TextView tc = convertView.findViewById(R.id.edTCKimlikNo);
         TextView sicilno = convertView.findViewById(R.id.edSicilNo);
         TextView birim = convertView.findViewById(R.id.edBirim);
         TextView adres = convertView.findViewById(R.id.edAdres);

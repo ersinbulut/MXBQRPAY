@@ -80,6 +80,11 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
     }
-
+    public void btnGec(View v) {
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        i.putExtra("kullanici_adi", edittext_kullanici.getText().toString());
+        i.putExtra("kullanici_sifre", edittext_sifre.getText().toString());
+        startActivity(i);
+    }
 
 }
