@@ -148,7 +148,7 @@ public class Veritabani extends SQLiteOpenHelper {
     public ArrayList<Personel> personelleriListele(){
         ArrayList<Personel> personeller = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT id,adsoyad,tc,sicilno,birim,adres,telefon,lokasyon,kullanici_adi,kullanici_sifre FROM personeller", null);
+        Cursor c = db.rawQuery("SELECT * FROM personeller", null);
         if(c.moveToFirst()){
             do{
                 String adsoyad = c.getString(1);

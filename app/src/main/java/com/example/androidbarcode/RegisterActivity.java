@@ -77,12 +77,8 @@ public class RegisterActivity extends AppCompatActivity {
         String edSifre=Sifre.getText().toString();
 
         Personel yeniPersonel=new Personel("",edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
-        //Personel p1=new Personel("","ersin","15151","55","hh","hh","56","jj","kk","jj");
         myRef.push().setValue(yeniPersonel);
-
-
-       // vt.close();
         Toast.makeText(this, "Personel Eklendi..", Toast.LENGTH_SHORT).show();
-
+        finish();
     }
 }
