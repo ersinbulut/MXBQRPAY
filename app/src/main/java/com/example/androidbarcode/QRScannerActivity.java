@@ -1,18 +1,18 @@
 package com.example.androidbarcode;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.budiyev.android.codescanner.CodeScanner;
@@ -20,54 +20,33 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
-import java.security.PrivateKey;
-import java.util.ArrayList;
-
-
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Fragment2 extends Fragment {
+public class QRScannerActivity extends AppCompatActivity {
     private CodeScanner mCodeScanner;
     private CodeScannerView mCodeScannerView;
-    TextView tv;
-
-    public Fragment2() {
-        // Required empty public constructor
-    }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_2, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_qrscanner);
 
-        tv=view.findViewById(R.id.textView13);
-        tv.setText("KAREKOD TARAYICI");
-/*
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, 123);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 123);
         } else {
             startScanning();
         }
-        mCodeScannerView = view.findViewById(R.id.scanner_view);
-        */
-
-        return view;
     }
-
-/*
     private void startScanning() {
-        mCodeScanner = new CodeScanner(getActivity(), mCodeScannerView);
+
+        mCodeScannerView = findViewById(R.id.scanner_view);
+        mCodeScanner = new CodeScanner(this, mCodeScannerView);
         mCodeScanner.startPreview();   // this line is very important, as you will not be able to scan your code without this, you will only get blank screen
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), result.getText(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(QRScannerActivity.this, result.getText(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -87,18 +66,12 @@ public class Fragment2 extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 123){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(getActivity(), "Permission Granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "İzin Verildi", Toast.LENGTH_SHORT).show();
                 startScanning();
             } else {
-                Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "İzin Reddedildi", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
-*/
-
-
-
-
 
 }

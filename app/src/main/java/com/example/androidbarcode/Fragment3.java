@@ -1,5 +1,6 @@
 package com.example.androidbarcode;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
  * A simple {@link Fragment} subclass.
  */
 public class Fragment3 extends Fragment {
-    TextView tv;
     EditText email;
     //EditText sifre;
     //ImageView resim;
@@ -36,8 +36,7 @@ public class Fragment3 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_3, container, false);
-        tv=view.findViewById(R.id.textView14);
-        tv.setText("Profil");
+
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();

@@ -33,12 +33,6 @@
             />
 
         <TextView
-            android:id="@+id/edKey"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="0" />
-
-        <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -291,7 +285,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="500dp"
         android:background="#22B628"
-        android:onClick="Ekle"
+        android:onClick="btnPersonelEkle"
         android:text="KAYDET" />
 
 </FrameLayout>

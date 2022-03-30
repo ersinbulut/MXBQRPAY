@@ -22,11 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText AdSoyad,TCKimlik,SicilNo,Birim,Adres,Telefon,Lokasyon,KullaniciAdi,Sifre;
-    TextView edkey;
-    FirebaseDatabase db;
-    DatabaseReference ref;
     //Veritabani con;
-    SharedPreferences ayarlar;
+    //SharedPreferences ayarlar;
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +40,16 @@ public class RegisterActivity extends AppCompatActivity {
         Lokasyon=findViewById(R.id.edLokasyon);
         KullaniciAdi=findViewById(R.id.edKullaniciAdi);
         Sifre=findViewById(R.id.edSifre);
-        edkey=findViewById(R.id.edKey);
-
-        ayarlar=getSharedPreferences("ayarlar",MODE_PRIVATE);
 
 
-        db= FirebaseDatabase.getInstance();
-        ref=db.getReference("Personels");
+        //ayarlar=getSharedPreferences("ayarlar",MODE_PRIVATE);
 
-        AdSoyad.setText(ayarlar.getString("adsoyad",""));
+         database = FirebaseDatabase.getInstance();
+         myRef = database.getReference("Personels");
+
+
     }
-
+/*
     public void Ekle(View v){
         ayarlar.edit().putString("adsoyad",AdSoyad.getText().toString()).apply();
         ayarlar.edit().putString("TCKimlik",AdSoyad.getText().toString()).apply();
@@ -63,16 +61,11 @@ public class RegisterActivity extends AppCompatActivity {
         ayarlar.edit().putString("KullaniciAdi",AdSoyad.getText().toString()).apply();
         ayarlar.edit().putString("Sifre",AdSoyad.getText().toString()).apply();
 
+        Toast.makeText(this, "shared EKLENDİ", Toast.LENGTH_SHORT).show();
+
     }
-
+*/
     public void btnPersonelEkle(View view){
-
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
-        String edKey=edkey.getText().toString();
         String edAdSoyad=AdSoyad.getText().toString();
         String edTCKimlik=TCKimlik.getText().toString();
         String edSicilNo=SicilNo.getText().toString();
@@ -83,12 +76,12 @@ public class RegisterActivity extends AppCompatActivity {
         String edKullaniciAdi=KullaniciAdi.getText().toString();
         String edSifre=Sifre.getText().toString();
 
-        Personel yeniPersonel=new Personel(edKey,edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
+        Personel yeniPersonel=new Personel("",edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
+        //Personel p1=new Personel("","ersin","15151","55","hh","hh","56","jj","kk","jj");
+        myRef.push().setValue(yeniPersonel);
 
 
-        Veritabani vt=new Veritabani(this);
-        vt.prsEkle(yeniPersonel);
-        vt.close();
+       // vt.close();
         Toast.makeText(this, "Personel Eklendi..", Toast.LENGTH_SHORT).show();
 
     }

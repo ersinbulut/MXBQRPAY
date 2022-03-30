@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -16,7 +17,7 @@ public class Veritabani extends SQLiteOpenHelper {
 
     public Veritabani(@Nullable Context context) {
 
-        super(context, "Personel.db", null, 2);
+        super(context, "Personels.db", null, 2);
     }
 
     @Override
@@ -72,7 +73,7 @@ public class Veritabani extends SQLiteOpenHelper {
                 String lokasyon=cursor.getString(7);
                 String kullanici_adi=cursor.getString(8);
                 String kullanici_sifre=cursor.getString(9);
-                Personel p=new Personel(i,adsoyad,tc,sicilno,birim,adres,telefon,lokasyon,kullanici_adi,kullanici_sifre);
+                Personel p=new Personel("",adsoyad,tc,sicilno,birim,adres,telefon,lokasyon,kullanici_adi,kullanici_sifre);
                 personelArrayList.add(p);
             }while (cursor.moveToNext());
         }
@@ -109,10 +110,6 @@ public class Veritabani extends SQLiteOpenHelper {
 
 
 
-
-
-
-
     public long personelEkleParametrleri(int id, String adsoyad, String tc, String sicilno, String birim, String adres, String telefon, String lokasyon, String kullanici_adi, String kullanici_sifre){
         ContentValues veriler = new ContentValues();
         veriler.put("id" , id);
@@ -126,7 +123,7 @@ public class Veritabani extends SQLiteOpenHelper {
         veriler.put("kullanici_sifre", kullanici_sifre);
 
         SQLiteDatabase db = getWritableDatabase();
-        long cevap = db.insert("Personeller", null, veriler);
+        long cevap = db.insert("Personels", null, veriler);
         return cevap;
     }
 
@@ -144,7 +141,7 @@ public class Veritabani extends SQLiteOpenHelper {
         veriler.put("kullanici_sifre", yeniPersonel.getKullanici_sifre());
 
         SQLiteDatabase db = getWritableDatabase();
-        long cevap = db.insert("Personeller", null, veriler);
+        long cevap = db.insert("Personels", null, veriler);
         return cevap;
     }
 
@@ -154,7 +151,6 @@ public class Veritabani extends SQLiteOpenHelper {
         Cursor c = db.rawQuery("SELECT id,adsoyad,tc,sicilno,birim,adres,telefon,lokasyon,kullanici_adi,kullanici_sifre FROM personeller", null);
         if(c.moveToFirst()){
             do{
-                int id = c.getInt(0);
                 String adsoyad = c.getString(1);
                 String tc = c.getString(2);
                 String sicilno = c.getString(3);
@@ -166,7 +162,7 @@ public class Veritabani extends SQLiteOpenHelper {
                 String kullanici_adi = c.getString(8);
                 String kullanici_sifre = c.getString(9);
                 //System.out.println(id +" - "+ ad +" - " + yil +" - " + tur);
-                Personel p = new Personel(id, null, adsoyad, tc, sicilno, birim, adres,telefon,lokasyon,kullanici_adi,kullanici_sifre);
+                Personel p = new Personel("", adsoyad, tc, sicilno, birim, adres,telefon,lokasyon,kullanici_adi,kullanici_sifre);
                 personeller.add(p);
             }while(c.moveToNext());
         }
@@ -188,7 +184,7 @@ public class Veritabani extends SQLiteOpenHelper {
         veriler.put("kullanici_sifre", String.valueOf(edSifre));
 
         SQLiteDatabase db = getWritableDatabase();
-        long cevap = db.insert("Personeller", null, veriler);
+        long cevap = db.insert("Personels", null, veriler);
         return cevap;
     }
 }

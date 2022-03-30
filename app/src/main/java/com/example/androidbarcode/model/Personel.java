@@ -1,9 +1,7 @@
 package com.example.androidbarcode.model;
 
-import java.io.Serializable;
-
-public class Personel implements Serializable {
-    private int id;
+public class Personel {
+    private String id;
 
     private String adsoyad;
     private String tc;
@@ -16,11 +14,10 @@ public class Personel implements Serializable {
     private String kullanici_adi;
     private String kullanici_sifre;
 
-
-    public Personel(String edKey, String edAdSoyad, String edTCKimlik, String edSicilNo, String edBirim, String edAdres, String edTelefon, String edLokasyon, String edKullaniciAdi, String edSifre) {
+    public Personel() {
     }
 
-    public Personel(int id, String adsoyad, String tc, String sicilno, String birim, String adres, String telefon, String lokasyon, String kullanici_adi, String kullanici_sifre) {
+    public Personel(String id, String adsoyad, String tc, String sicilno, String birim, String adres, String telefon, String lokasyon, String kullanici_adi, String kullanici_sifre) {
         this.id = id;
         this.adsoyad = adsoyad;
         this.tc = tc;
@@ -33,24 +30,11 @@ public class Personel implements Serializable {
         this.kullanici_sifre = kullanici_sifre;
     }
 
-    public Personel(int id, Object o, String adsoyad, String tc, String sicilno, String birim, String adres, String telefon, String lokasyon, String kullanici_adi, String kullanici_sifre) {
-        this.id=id;
-        this.adsoyad = adsoyad;
-        this.tc = tc;
-        this.sicilno = sicilno;
-        this.birim = birim;
-        this.adres = adres;
-        this.telefon = telefon;
-        this.lokasyon = lokasyon;
-        this.kullanici_adi = kullanici_adi;
-        this.kullanici_sifre = kullanici_sifre;
-    }
-
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

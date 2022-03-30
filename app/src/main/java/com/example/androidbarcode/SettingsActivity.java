@@ -34,6 +34,15 @@ public class SettingsActivity extends AppCompatActivity {
         //edKullaniciSifre=findViewById(R.id.edSifre);
 
         edKullaniciAdi.setText(kullanici_adi.toString());
+
+
+        Veritabani vt=new Veritabani(SettingsActivity.this);
+        vt.personelleriListele();
+
+        vt.close();
+
+
+
         //edKullaniciSifre.setText(kullanici_sifre.toString());
 /*
         Button btnconnect=(Button) findViewById(R.id.btnKaydet);
