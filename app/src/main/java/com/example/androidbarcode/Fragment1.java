@@ -31,8 +31,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.androidbarcode.model.Personel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 /**
@@ -47,6 +53,9 @@ public class Fragment1 extends Fragment {
     private Bitmap bitmap;
     private QRGEncoder qrgEncoder;
     private Fragment1 activity;
+
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     public Fragment1() {
         // Required empty public constructor
@@ -64,6 +73,42 @@ public class Fragment1 extends Fragment {
         qrImage = view.findViewById(R.id.qr_image);
         edtValue = view.findViewById(R.id.edt_value);
         activity = Fragment1.this;
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("Personels");
+
+        // Veri tabanındaki verileri okuma
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot d:dataSnapshot.getChildren()){
+                    Personel personel = d.getValue(Personel.class);
+                    String key=d.getKey();
+                    personel.setId(key);
+
+                    String adsoyad = personel.getAdsoyad();
+                    String tc = personel.getTc();
+                    String sicilno=personel.getSicilno();
+                    String birim = personel.getBirim();
+                    String adres = personel.getAdres();
+                    String telefon = personel.getTelefon();
+                    String lokasyon = personel.getLokasyon();
+                    String kadi= personel.getKullanici_adi();
+                    String sifre =personel.getKullanici_sifre();
+                    String stekrar= personel.getKullanici_sifre();
+                    String all= "adsoyad: "+adsoyad+"\n"+"tc: "+tc+"\n"+"sicilno: "+sicilno+"\n"+"birim: "+birim+"\n"+"adres: "+adres+"\n"+"telefon: "+telefon+"\n"+"lokasyon: "+lokasyon+"\n"+"kullanici adi: "+kadi+"\n"+"şifre: "+sifre+"\n"+"şifre tekrar"+stekrar+"\n";
+                    edtValue.setText(all);
+                }
+
+                //Log.d(TAG, "Value is: " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                // Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
 
 
         view.findViewById(R.id.generate_barcode).setOnClickListener(new View.OnClickListener() {
