@@ -104,12 +104,6 @@ public class Veritabani extends SQLiteOpenHelper {
         return cevap;
     }
 
-
-
-
-
-
-
     public long personelEkleParametrleri(int id, String adsoyad, String tc, String sicilno, String birim, String adres, String telefon, String lokasyon, String kullanici_adi, String kullanici_sifre){
         ContentValues veriler = new ContentValues();
         veriler.put("id" , id);

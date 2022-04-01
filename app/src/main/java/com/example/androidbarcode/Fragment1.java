@@ -96,7 +96,7 @@ public class Fragment1 extends Fragment {
                     String kadi= personel.getKullanici_adi();
                     String sifre =personel.getKullanici_sifre();
                     String stekrar= personel.getKullanici_sifre();
-                    String all= "adsoyad: "+adsoyad+"\n"+"tc: "+tc+"\n"+"sicilno: "+sicilno+"\n"+"birim: "+birim+"\n"+"adres: "+adres+"\n"+"telefon: "+telefon+"\n"+"lokasyon: "+lokasyon+"\n"+"kullanici adi: "+kadi+"\n"+"şifre: "+sifre+"\n"+"şifre tekrar"+stekrar+"\n";
+                    String all= adsoyad+","+tc+","+sicilno+","+birim+","+adres+","+telefon+","+lokasyon+","+kadi+","+sifre+","  +stekrar;
                     edtValue.setText(all);
                 }
 

@@ -1,12 +1,10 @@
 package com.example.androidbarcode;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,9 +18,6 @@ import com.budiyev.android.codescanner.CodeScannerView;
 import com.budiyev.android.codescanner.DecodeCallback;
 import com.google.zxing.Result;
 
-import java.security.PrivateKey;
-import java.util.ArrayList;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +26,6 @@ public class Fragment2 extends Fragment {
     private CodeScanner mCodeScanner;
     private CodeScannerView mCodeScannerView;
     TextView tv;
-
     public Fragment2() {
         // Required empty public constructor
     }
@@ -45,29 +39,28 @@ public class Fragment2 extends Fragment {
 
         tv=view.findViewById(R.id.textView13);
         tv.setText("KAREKOD TARAYICI");
-/*
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
+
+        if (ContextCompat.checkSelfPermission(getActivity().getApplication(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
             ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, 123);
         } else {
             startScanning();
         }
         mCodeScannerView = view.findViewById(R.id.scanner_view);
-        */
+        mCodeScanner = new CodeScanner(getActivity().getApplication(), mCodeScannerView);
+        mCodeScanner.startPreview();   // this line is very important, as you will not be able to scan your code without this, you will only get blank screen
+
 
         return view;
     }
 
-/*
     private void startScanning() {
-        mCodeScanner = new CodeScanner(getActivity(), mCodeScannerView);
-        mCodeScanner.startPreview();   // this line is very important, as you will not be able to scan your code without this, you will only get blank screen
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), result.getText(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplication(), result.getText(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -84,18 +77,16 @@ public class Fragment2 extends Fragment {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        getParentFragment().getActivity().onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 123){
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(getActivity(), "Permission Granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "İzin Verildi", Toast.LENGTH_SHORT).show();
                 startScanning();
             } else {
-                Toast.makeText(getActivity(), "Permission Denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "İzin Reddedildi", Toast.LENGTH_SHORT).show();
             }
         }
     }
-
-*/
 
 
 
