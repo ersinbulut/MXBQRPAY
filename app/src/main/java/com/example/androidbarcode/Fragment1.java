@@ -75,7 +75,7 @@ public class Fragment1 extends Fragment {
         activity = Fragment1.this;
 
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("Personels");
+        myRef = database.getReference("users");
 
         // Veri tabanındaki verileri okuma
         myRef.addValueEventListener(new ValueEventListener() {

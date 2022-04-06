@@ -1,6 +1,7 @@
 package com.example.androidbarcode;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -22,6 +23,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.androidbarcode.database.Veritabani;
 import com.example.androidbarcode.model.Personel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,6 +40,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity implements LocationListener {
     EditText AdSoyad,TCKimlik,SicilNo,Birim,Adres,Telefon,Lokasyon,KullaniciAdi,Sifre;
@@ -97,42 +106,8 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         //ayarlar=getSharedPreferences("ayarlar",MODE_PRIVATE);
 
          database = FirebaseDatabase.getInstance();
-         myRef = database.getReference("Personels");
+         myRef = database.getReference("users");
 
-        Button btnconnect=(Button) findViewById(R.id.button3);
-
-        btnconnect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String edAdSoyad=AdSoyad.getText().toString();
-                String edTCKimlik=TCKimlik.getText().toString();
-                String edSicilNo=SicilNo.getText().toString();
-                String edBirim=Birim.getText().toString();
-                String edAdres=Adres.getText().toString();
-                String edTelefon=Telefon.getText().toString();
-                String edLokasyon=Lokasyon.getText().toString();
-                String edKullaniciAdi=KullaniciAdi.getText().toString();
-                String edSifre=Sifre.getText().toString();
-
-                Personel yeniPersonel=new Personel("",edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
-                ConSQL c=new ConSQL();
-                connection=c.conClass();
-                if (c!=null){
-                    try {
-                    String sqlstatement="SELECT * FROM personel_table";
-                    Statement smt=connection.createStatement();
-                    ResultSet set= smt.executeQuery(sqlstatement);
-                    while (set.next()){
-                        AdSoyad.setText(set.getString(2));
-                    }
-                    connection.close();
-                    }
-                    catch (Exception e){
-                        Log.e("Error",e.getMessage());
-                    }
-                }
-            }
-        });
     }
     @Override
     public void onLocationChanged(Location location) {
@@ -187,22 +162,7 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         }
 
     }
-/*
-    public void Ekle(View v){
-        ayarlar.edit().putString("adsoyad",AdSoyad.getText().toString()).apply();
-        ayarlar.edit().putString("TCKimlik",AdSoyad.getText().toString()).apply();
-        ayarlar.edit().putString("SicilNo",AdSoyad.getText().toString()).apply();
-        ayarlar.edit().putString("Birim",AdSoyad.getText().toString()).apply();
-        ayarlar.edit().putString("Adres",AdSoyad.getText().toString()).apply();
-        ayarlar.edit().putString("Telefon",AdSoyad.getText().toString()).apply();
-        ayarlar.edit().putString("Lokasyon",AdSoyad.getText().toString()).apply();
-        ayarlar.edit().putString("KullaniciAdi",AdSoyad.getText().toString()).apply();
-        ayarlar.edit().putString("Sifre",AdSoyad.getText().toString()).apply();
 
-        Toast.makeText(this, "shared EKLENDİ", Toast.LENGTH_SHORT).show();
-
-    }
-*/
     public void btnPersonelEkle(View view){
         String edAdSoyad=AdSoyad.getText().toString();
         String edTCKimlik=TCKimlik.getText().toString();
@@ -216,7 +176,47 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
 
         Personel yeniPersonel=new Personel("",edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
         myRef.push().setValue(yeniPersonel);
+        kisiEkle();
         Toast.makeText(this, "Personel Eklendi..", Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    public void kisiEkle(){
+        String url="http://mxbinteractive.com/QRAPP/insert_kisiler.php";
+
+        StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("Cevap",response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                //Kullanıcı bilgileri
+                params.put("user_adsoyad",AdSoyad.getText().toString());
+                params.put("user_tc",TCKimlik.getText().toString());
+                params.put("user_sicilno",SicilNo.getText().toString());
+                params.put("user_birim",Birim.getText().toString());
+                params.put("user_adres",Adres.getText().toString());
+                params.put("user_telefon",Telefon.getText().toString());
+                params.put("user_lokasyon",Lokasyon.getText().toString());
+                //Login Bilgileri
+                params.put("user_kullaniciadi",KullaniciAdi.getText().toString());
+                params.put("user_sifre",Sifre.getText().toString());
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(this).add(istek);
+        //Toast.makeText(this, "Eklendi..", Toast.LENGTH_SHORT).show();
+
     }
 }

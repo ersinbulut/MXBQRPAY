@@ -15,7 +15,7 @@
         android:background="@drawable/rounded_buton"
         android:fontFamily="@font/arimo"
         android:gravity="bottom|center"
-        android:text="KAYIT FORMU"
+        android:text="AYARLAR"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 
@@ -299,7 +299,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginTop="550dp"
         android:background="#22B628"
-        android:onClick="btnPersonelEkle"
+        android:onClick="kisiGuncelle"
         android:text="KAYDET" />
 
 </FrameLayout>
