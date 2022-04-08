@@ -47,7 +47,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="AD SOYAD"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edAdSoyad"
@@ -69,7 +70,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="TC KİMLİK "
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edTCKimlikNo"
@@ -92,7 +94,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="SİCİL NO"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edSicilNo"
@@ -115,7 +118,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="BİRİM"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edBirim"
@@ -138,7 +142,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="ADRES"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edAdres"
@@ -161,7 +166,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="TELEFON"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edTelefon"
@@ -180,12 +186,6 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:text="LOKASYON"
-                android:textSize="16sp" />
-
             <EditText
                 android:id="@+id/edLokasyon"
                 android:layout_width="wrap_content"
@@ -194,15 +194,8 @@
                 android:layout_weight="1"
                 android:background="#11000000"
                 android:ems="10"
-                android:inputType="textPersonName" />
-
-            <Button
-                android:id="@+id/buttonKonumAl"
-                android:layout_width="wrap_content"
-                android:layout_height="45dp"
-                android:layout_marginTop="3dp"
-                android:layout_weight="1"
-                android:text="AL" />
+                android:inputType="textPersonName"
+                android:visibility="invisible" />
 
         </LinearLayout>
 
@@ -231,7 +224,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="KULLANICI ADI"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edKullaniciAdi"
@@ -253,7 +247,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="ŞİFRE"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edSifre"
@@ -263,7 +258,9 @@
                 android:layout_weight="1"
                 android:background="#11000000"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPassword" />
+
+
 
         </LinearLayout>
 
@@ -276,7 +273,8 @@
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:text="ŞİFRE TEKRAR"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/edSifreTekrar"
@@ -286,7 +284,7 @@
                 android:layout_weight="1"
                 android:background="#11000000"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPassword" />
 
         </LinearLayout>
 

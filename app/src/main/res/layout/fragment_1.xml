@@ -39,12 +39,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
             <Button
                 android:id="@+id/generate_barcode"
                 android:layout_width="350dp"
-                android:background="@color/design_default_color_secondary"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/design_default_color_secondary"
                 android:text="Oluştur" />
 
         </LinearLayout>

@@ -69,39 +69,7 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         KullaniciAdi=findViewById(R.id.edKullaniciAdi);
         Sifre=findViewById(R.id.edSifre);
 
-        buttonKonumAl = (Button) findViewById(R.id.buttonKonumAl);
-
         konumYoneticisi = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        buttonKonumAl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                izinKontrol = ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
-
-                if(izinKontrol != PackageManager.PERMISSION_GRANTED){
-                    //uygulamanın manifestinde izin var ama kullanıcı izni onaylamışmı bunun kontrolu yapılır
-
-                    ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-
-                    //izin kontrolu daha önce yapılmış ve izine onay verilmemişse , izin alma diyalogu çıkar.
-                }else{
-                    //daha önce izine onay verilmişse burası çalışır.
-
-                    Location konum = konumYoneticisi.getLastKnownLocation(konumSaglayici);
-
-                    if (konum != null) {
-
-                        onLocationChanged(konum);
-
-                    } else {
-                        Lokasyon.setText("Konum aktif değil");
-                    }
-                }
-
-            }
-        });
-
 
         //ayarlar=getSharedPreferences("ayarlar",MODE_PRIVATE);
 
@@ -164,6 +132,7 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
     }
 
     public void btnPersonelEkle(View view){
+        konumAl();
         String edAdSoyad=AdSoyad.getText().toString();
         String edTCKimlik=TCKimlik.getText().toString();
         String edSicilNo=SicilNo.getText().toString();
@@ -173,8 +142,9 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         String edLokasyon=Lokasyon.getText().toString();
         String edKullaniciAdi=KullaniciAdi.getText().toString();
         String edSifre=Sifre.getText().toString();
+        String id = myRef.getKey();
+        Personel yeniPersonel=new Personel(id,edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
 
-        Personel yeniPersonel=new Personel("",edAdSoyad,edTCKimlik,edSicilNo,edBirim,edAdres,edTelefon,edLokasyon,edKullaniciAdi,edSifre);
         myRef.push().setValue(yeniPersonel);
         kisiEkle();
         Toast.makeText(this, "Personel Eklendi..", Toast.LENGTH_SHORT).show();
@@ -218,5 +188,28 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
         Volley.newRequestQueue(this).add(istek);
         //Toast.makeText(this, "Eklendi..", Toast.LENGTH_SHORT).show();
 
+    }
+    public void konumAl(){
+        izinKontrol = ContextCompat.checkSelfPermission(RegisterActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if(izinKontrol != PackageManager.PERMISSION_GRANTED){
+            //uygulamanın manifestinde izin var ama kullanıcı izni onaylamışmı bunun kontrolu yapılır
+
+            ActivityCompat.requestPermissions(RegisterActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
+
+            //izin kontrolu daha önce yapılmış ve izine onay verilmemişse , izin alma diyalogu çıkar.
+        }else{
+            //daha önce izine onay verilmişse burası çalışır.
+
+            Location konum = konumYoneticisi.getLastKnownLocation(konumSaglayici);
+
+            if (konum != null) {
+
+                onLocationChanged(konum);
+
+            } else {
+                Lokasyon.setText("Konum aktif değil");
+            }
+        }
     }
 }
