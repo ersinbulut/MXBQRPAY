@@ -44,6 +44,7 @@ import java.util.Map;
  */
 public class Fragment3 extends Fragment {
     EditText AdSoyad,TCKimlik,SicilNo,Birim,Adres,Telefon,Lokasyon,KullaniciAdi,Sifre,SifreTekrar;
+    TextView txtkey;
     Button button;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
@@ -51,6 +52,7 @@ public class Fragment3 extends Fragment {
     FirebaseDatabase database;
     DatabaseReference myRef;
     Veritabani veritabani;
+    String key;
 
 
     public Fragment3() {
@@ -74,6 +76,7 @@ public class Fragment3 extends Fragment {
         KullaniciAdi=view.findViewById(R.id.edKullaniciAdi);
         Sifre=view.findViewById(R.id.edSifre);
         SifreTekrar=view.findViewById(R.id.edSifreTekrar);
+        txtkey=view.findViewById(R.id.txtKey);
 
         button=view.findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +85,7 @@ public class Fragment3 extends Fragment {
                 //kayıt güncelleme
                 kisiGuncelle();
                 Map<String,Object> bilgiler=new HashMap<>();
-                String id = myRef.getKey();
+                String id = key;
                 bilgiler.put("adsoyad",AdSoyad.getText().toString());
                 bilgiler.put("tc",TCKimlik.getText().toString());
                 bilgiler.put("sicilno",SicilNo.getText().toString());
@@ -109,9 +112,9 @@ public class Fragment3 extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot d:dataSnapshot.getChildren()){
                     Personel personel = d.getValue(Personel.class);
-                    String key=d.getKey();
+                    key=d.getKey();
                     personel.setId(key);
-
+                    txtkey.setText(key);
                     AdSoyad.setText(personel.getAdsoyad());
                     TCKimlik.setText(personel.getTc());
                     SicilNo.setText(personel.getSicilno());
