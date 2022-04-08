@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7F8"
+    android:background="#CED6D6"
     tools:context=".Fragment2">
 
     <com.budiyev.android.codescanner.CodeScannerView
         android:id="@+id/scanner_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:autoFocusButtonColor="@android:color/black"
+        android:layout_height="748dp"
+        android:layout_marginTop="15dp"
+        app:autoFocusButtonColor="#504F4F"
         app:autoFocusButtonVisible="true"
         app:flashButtonColor="@android:color/black"
         app:flashButtonVisible="true"
@@ -32,7 +33,7 @@
         android:background="@drawable/rounded_buton"
         android:fontFamily="@font/arimo"
         android:gravity="bottom|center"
-        android:text="TextView"
+        android:text="KAREKOD TARAYICI"
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 </FrameLayout>

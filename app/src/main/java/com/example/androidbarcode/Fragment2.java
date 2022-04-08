@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,59 +38,43 @@ public class Fragment2 extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_2, container, false);
 
-        tv=view.findViewById(R.id.textView13);
-        tv.setText("KAREKOD TARAYICI");
+        //tv=view.findViewById(R.id.textView13);
+        //tv.setText("KAREKOD TARAYICI");
 
-        if (ContextCompat.checkSelfPermission(getActivity().getApplication(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
-            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, 123);
-        } else {
-            startScanning();
-        }
-        mCodeScannerView = view.findViewById(R.id.scanner_view);
-        mCodeScanner = new CodeScanner(getActivity().getApplication(), mCodeScannerView);
-        mCodeScanner.startPreview();   // this line is very important, as you will not be able to scan your code without this, you will only get blank screen
-
-
-        return view;
-    }
-
-    private void startScanning() {
+        final Activity activity = getActivity();
+        View root = inflater.inflate(R.layout.fragment_2, container, false);
+        CodeScannerView scannerView = root.findViewById(R.id.scanner_view);
+        mCodeScanner = new CodeScanner(activity, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
             public void onDecoded(@NonNull final Result result) {
-                getActivity().runOnUiThread(new Runnable() {
+                activity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity().getApplication(), result.getText(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, result.getText(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
-
-        //now if you want to scan again when you click on scanner then do this.
-        mCodeScannerView.setOnClickListener(new View.OnClickListener() {
+        scannerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mCodeScanner.startPreview();
             }
         });
+        return root;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        getParentFragment().getActivity().onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 123){
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                Toast.makeText(getActivity(), "İzin Verildi", Toast.LENGTH_SHORT).show();
-                startScanning();
-            } else {
-                Toast.makeText(getActivity(), "İzin Reddedildi", Toast.LENGTH_SHORT).show();
-            }
-        }
+    public void onResume() {
+        super.onResume();
+        mCodeScanner.startPreview();
     }
 
-
-
-
+    @Override
+    public void onPause() {
+        mCodeScanner.releaseResources();
+        super.onPause();
+    }
 
 }

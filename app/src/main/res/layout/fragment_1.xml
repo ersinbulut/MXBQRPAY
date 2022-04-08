@@ -45,7 +45,7 @@
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/design_default_color_secondary"
+                android:background="#CED6D6"
                 android:text="Oluştur" />
 
         </LinearLayout>

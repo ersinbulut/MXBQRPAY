@@ -63,12 +63,12 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (Item.getItemId()==R.id.Item2) {
                     //2.fragment gözükecek
-                    /*getSupportFragmentManager()
+                    getSupportFragmentManager()
                             .beginTransaction()
                             .replace(R.id.frameLayout,f2)
-                            .commit();*/
-                    Intent i=new Intent(MainActivity.this,QRScannerActivity.class);
-                    startActivity(i);
+                            .commit();
+                    //Intent i=new Intent(MainActivity.this,QRScannerActivity.class);
+                   //startActivity(i);
                 }
                 if (Item.getItemId()==R.id.Item3) {
                     //3.fragment gözükecek
