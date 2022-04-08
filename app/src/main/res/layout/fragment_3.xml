@@ -204,7 +204,7 @@
                 android:background="#11000000"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
         </LinearLayout>
 

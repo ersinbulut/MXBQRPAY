@@ -83,7 +83,8 @@ public class Fragment3 extends Fragment {
             @Override
             public void onClick(View view) {
                 //kayıt güncelleme
-                kisiGuncelle();
+                userUpdate();
+
                 Map<String,Object> bilgiler=new HashMap<>();
                 String id = key;
                 bilgiler.put("adsoyad",AdSoyad.getText().toString());
@@ -97,8 +98,7 @@ public class Fragment3 extends Fragment {
                 bilgiler.put("kullanici_sifre",Sifre.getText().toString());
                 //bu kod firebase veritabanındaki id değeridir.
                 myRef.child(id).updateChildren(bilgiler);
-
-                kisiGuncelle();
+                Toast.makeText(getContext(), "Bilgiler güncellendi..", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -136,17 +136,58 @@ public class Fragment3 extends Fragment {
                // Log.w(TAG, "Failed to read value.", error.toException());
             }
         });
-
-
-
-
-        //kisiArama();
-        //kisileriListele();
         return view;
     }
+    public void userUpdate(){
+        String url="http://mxbinteractive.com/QRAPP/update_kisiler.php";
 
+        StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("Cevap",response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                //Kullanıcı bilgileri
+                params.put("user_adsoyad",AdSoyad.getText().toString());
+                params.put("user_tc",TCKimlik.getText().toString());
+                params.put("user_sicilno",SicilNo.getText().toString());
+                params.put("user_birim",Birim.getText().toString());
+                params.put("user_adres",Adres.getText().toString());
+                params.put("user_telefon",Telefon.getText().toString());
+                params.put("user_lokasyon",Lokasyon.getText().toString());
+                //Login Bilgileri
+                params.put("user_kullaniciadi",KullaniciAdi.getText().toString());
+                params.put("user_sifre",Sifre.getText().toString());
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(getContext()).add(istek);
+        //Toast.makeText(this, "Eklendi..", Toast.LENGTH_SHORT).show();
+
+    }
 
     public void kisiGuncelle(){
+        final String tc=TCKimlik.getText().toString().trim();
+        final String adsoyad=AdSoyad.getText().toString().trim();
+        final String sicilno=SicilNo.getText().toString().trim();
+        final String birim=Birim.getText().toString().trim();
+        final String adres=Adres.getText().toString().trim();
+        final String telefon=Telefon.getText().toString().trim();
+        final String lokasyon=Lokasyon.getText().toString().trim();
+        final String kadi=KullaniciAdi.getText().toString().trim();
+        final String sifre=Sifre.getText().toString().trim();
+
         String url="http://mxbinteractive.com/QRAPP/update_kisiler.php";
 
         StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
@@ -166,17 +207,17 @@ public class Fragment3 extends Fragment {
                 Map<String,String> params=new HashMap<>();
                 //Kullanici
                 Personel personel=new Personel();
-                params.put("user_id",String.valueOf(personel.getId()));
-                params.put("user_tc",TCKimlik.getText().toString());
-                params.put("user_adsoyad", AdSoyad.getText().toString());
-                params.put("user_sicilno", SicilNo.getText().toString());
-                params.put("user_birim", Birim.getText().toString());
-                params.put("user_adres", Adres.getText().toString());
-                params.put("user_telefon", Telefon.getText().toString());
-                params.put("user_lokasyon", Lokasyon.getText().toString());
+                params.put("user_id", personel.getId());
+                params.put("user_tc",tc);
+                params.put("user_adsoyad", adsoyad);
+                params.put("user_sicilno", sicilno);
+                params.put("user_birim", birim);
+                params.put("user_adres", adres);
+                params.put("user_telefon", telefon);
+                params.put("user_lokasyon", lokasyon);
                 //Login
-                params.put("user_kullaniciadi", KullaniciAdi.getText().toString());
-                params.put("user_sifre", Sifre.getText().toString());
+                params.put("user_kullaniciadi", kadi);
+                params.put("user_sifre", sifre);
 
 
                 return params;

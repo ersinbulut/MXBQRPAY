@@ -208,7 +208,7 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
                 onLocationChanged(konum);
 
             } else {
-                Lokasyon.setText("Konum aktif değil");
+                Lokasyon.setText("Konum aktif degil");
             }
         }
     }
