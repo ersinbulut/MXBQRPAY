@@ -45,12 +45,10 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity implements LocationListener {
     EditText AdSoyad,TCKimlik,SicilNo,Birim,Adres,Telefon,Lokasyon,KullaniciAdi,Sifre;
-    Connection connection;
-    //SharedPreferences ayarlar;
+    //firebase veritabanı islemleri ile ilgili tanımlamalar
     FirebaseDatabase database;
     DatabaseReference myRef;
-
-    private Button buttonKonumAl;
+    //lokasyon islemleri ile ilgili tanımlamalar
     private LocationManager konumYoneticisi;
     private String konumSaglayici = "gps";
     private int izinKontrol;

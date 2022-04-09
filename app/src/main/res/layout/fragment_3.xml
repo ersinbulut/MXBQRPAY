@@ -214,7 +214,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="355dp"
         android:layout_marginRight="30dp"
         android:orientation="vertical">
 
@@ -267,7 +267,7 @@
                 android:layout_weight="1"
                 android:background="#11000000"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPassword" />
 
         </LinearLayout>
 
@@ -291,7 +291,7 @@
                 android:layout_weight="1"
                 android:background="#11000000"
                 android:ems="10"
-                android:inputType="textPersonName" />
+                android:inputType="textPassword" />
 
         </LinearLayout>
 
@@ -302,9 +302,19 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="550dp"
+        android:layout_marginTop="495dp"
         android:background="#22B628"
         android:onClick="kisiGuncelle"
         android:text="KAYDET" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="550dp"
+        android:background="#F44336"
+        android:onClick="CikisYap"
+        android:text="ÇIKIŞ YAP" />
 
 </FrameLayout>

@@ -36,7 +36,7 @@ public class Fragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_2, container, false);
+        View view = inflater.inflate(R.layout.fragment_2, container, false);
 
         //tv=view.findViewById(R.id.textView13);
         //tv.setText("KAREKOD TARAYICI");
@@ -44,6 +44,8 @@ public class Fragment2 extends Fragment {
         final Activity activity = getActivity();
         View root = inflater.inflate(R.layout.fragment_2, container, false);
         CodeScannerView scannerView = root.findViewById(R.id.scanner_view);
+
+
         mCodeScanner = new CodeScanner(activity, scannerView);
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
             @Override
@@ -56,15 +58,20 @@ public class Fragment2 extends Fragment {
                 });
             }
         });
-        scannerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mCodeScanner.startPreview();
-            }
-        });
+        //Kameraya erişim izni kontrolü
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.CAMERA}, 123);
+        } else {
+            Toast.makeText(getContext(), "İzin kabul edildi.", Toast.LENGTH_LONG).show();
+            scannerView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mCodeScanner.startPreview();
+                }
+            });
+        }
         return root;
     }
-
     @Override
     public void onResume() {
         super.onResume();

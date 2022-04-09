@@ -1,6 +1,13 @@
 package com.example.androidbarcode;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,7 +19,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -42,17 +52,23 @@ import java.util.Map;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment3 extends Fragment {
+public class Fragment3 extends Fragment implements LocationListener {
     EditText AdSoyad,TCKimlik,SicilNo,Birim,Adres,Telefon,Lokasyon,KullaniciAdi,Sifre,SifreTekrar;
     TextView txtkey;
-    Button button;
-    private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
-
+    Button btnKaydet,btnCikisYap;
+    String key;
+    //firebase veritabanı islemleri ile ilgili tanımlamalar
+    //private FirebaseAuth mAuth;
+    //private FirebaseUser mUser;
     FirebaseDatabase database;
     DatabaseReference myRef;
-    Veritabani veritabani;
-    String key;
+
+
+
+    //lokasyon islemleri ile ilgili tanımlamalar
+    private LocationManager konumYoneticisi;
+    private String konumSaglayici = "gps";
+    private int izinKontrol;
 
 
     public Fragment3() {
@@ -78,15 +94,19 @@ public class Fragment3 extends Fragment {
         SifreTekrar=view.findViewById(R.id.edSifreTekrar);
         txtkey=view.findViewById(R.id.txtKey);
 
-        button=view.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        konumYoneticisi = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        btnKaydet=view.findViewById(R.id.button);
+        btnKaydet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //kayıt güncelleme
-                userUpdate();
+                konumAl();
+                kisiGuncelle();
 
                 Map<String,Object> bilgiler=new HashMap<>();
                 String id = key;
+                bilgiler.put("id",id);
                 bilgiler.put("adsoyad",AdSoyad.getText().toString());
                 bilgiler.put("tc",TCKimlik.getText().toString());
                 bilgiler.put("sicilno",SicilNo.getText().toString());
@@ -99,6 +119,15 @@ public class Fragment3 extends Fragment {
                 //bu kod firebase veritabanındaki id değeridir.
                 myRef.child(id).updateChildren(bilgiler);
                 Toast.makeText(getContext(), "Bilgiler güncellendi..", Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnCikisYap=view.findViewById(R.id.button2);
+        btnCikisYap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), LoginActivity.class);
+                startActivity(i);
+                getActivity().finish();
             }
         });
 
@@ -138,6 +167,61 @@ public class Fragment3 extends Fragment {
         });
         return view;
     }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+        Double enlem = location.getLatitude();
+        Double boylam = location.getLongitude();
+        //Double yukseklik = location.getAltitude();
+        Lokasyon.setText(String.valueOf(enlem)+","+String.valueOf(boylam));
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+
+            izinKontrol = ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION);
+
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                Toast.makeText(getContext(), "İzin kabul edildi.", Toast.LENGTH_LONG).show();
+
+                Location konum = konumYoneticisi.getLastKnownLocation(konumSaglayici);
+
+                if (konum != null) {
+                    System.out.println("Provider " + konumSaglayici + " seçildi.");
+                    onLocationChanged(konum);
+                } else {
+                    Lokasyon.setText("Konum aktif değil");
+                }
+
+            } else {
+                Toast.makeText(getContext(), "İzin reddedildi.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
     public void userUpdate(){
         String url="http://mxbinteractive.com/QRAPP/update_kisiler.php";
 
@@ -157,16 +241,16 @@ public class Fragment3 extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params=new HashMap<>();
                 //Kullanıcı bilgileri
-                params.put("user_adsoyad",AdSoyad.getText().toString());
-                params.put("user_tc",TCKimlik.getText().toString());
-                params.put("user_sicilno",SicilNo.getText().toString());
-                params.put("user_birim",Birim.getText().toString());
-                params.put("user_adres",Adres.getText().toString());
-                params.put("user_telefon",Telefon.getText().toString());
-                params.put("user_lokasyon",Lokasyon.getText().toString());
+                params.put("user_adsoyad", String.valueOf(AdSoyad.getText()));
+                params.put("user_tc", String.valueOf(TCKimlik.getText()));
+                params.put("user_sicilno", String.valueOf(SicilNo.getText()));
+                params.put("user_birim", String.valueOf(Birim.getText()));
+                params.put("user_adres", String.valueOf(Adres.getText()));
+                params.put("user_telefon", String.valueOf(Telefon.getText()));
+                params.put("user_lokasyon", String.valueOf(Lokasyon.getText()));
                 //Login Bilgileri
-                params.put("user_kullaniciadi",KullaniciAdi.getText().toString());
-                params.put("user_sifre",Sifre.getText().toString());
+                params.put("user_kullaniciadi", String.valueOf(KullaniciAdi.getText()));
+                params.put("user_sifre", String.valueOf(Sifre.getText()));
 
                 return params;
             }
@@ -207,9 +291,9 @@ public class Fragment3 extends Fragment {
                 Map<String,String> params=new HashMap<>();
                 //Kullanici
                 Personel personel=new Personel();
-                params.put("user_id", personel.getId());
-                params.put("user_tc",tc);
+                //params.put("user_id", personel.getId());
                 params.put("user_adsoyad", adsoyad);
+                params.put("user_tc",tc);
                 params.put("user_sicilno", sicilno);
                 params.put("user_birim", birim);
                 params.put("user_adres", adres);
@@ -218,79 +302,36 @@ public class Fragment3 extends Fragment {
                 //Login
                 params.put("user_kullaniciadi", kadi);
                 params.put("user_sifre", sifre);
-
-
                 return params;
             }
         };
 
         Volley.newRequestQueue(getContext()).add(istek);
-        Toast.makeText(getContext(), "Bilgiler güncellendi..", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Bilgiler güncellendi..", Toast.LENGTH_SHORT).show();
     }
 
-    public void kisiArama(){
-        String url="http://mxbinteractive.com/QRAPP/tum_kisiler_arama.php";
+    public void konumAl(){
+        izinKontrol = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
 
-        StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e("Cevap",response);
+        if(izinKontrol != PackageManager.PERMISSION_GRANTED){
+            //uygulamanın manifestinde izin var ama kullanıcı izni onaylamışmı bunun kontrolu yapılır
 
-                try {
-                    JSONObject jsonObject=new JSONObject(response);
-                    JSONArray kisilerListe=jsonObject.getJSONArray("users");
+            ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
 
-                    for (int i=0;i<kisilerListe.length();i++){
-                        JSONObject k =kisilerListe.getJSONObject(i);
+            //izin kontrolu daha önce yapılmış ve izine onay verilmemişse , izin alma diyalogu çıkar.
+        }else{
+            //daha önce izine onay verilmişse burası çalışır.
 
-                        int user_id=k.getInt("users_id");
-                        String user_adsoyad=k.getString("user_adsoyad");
-                        String user_tc=k.getString("user_tc");
-                        String user_sicilno=k.getString("user_sicilno");
-                        String user_birim=k.getString("user_birim");
-                        String user_adres=k.getString("user_adres");
-                        String user_telefon=k.getString("user_telefon");
-                        String user_lokasyon=k.getString("user_lokasyon");
-                        String user_kullaniciadi=k.getString("user_kullaniciadi");
-                        String user_sifre=k.getString("user_sifre");
+            Location konum = konumYoneticisi.getLastKnownLocation(konumSaglayici);
 
+            if (konum != null) {
 
-                        Log.e("user_id",String.valueOf(user_id));
-                        Log.e("user_adsoyad",user_adsoyad);
-                        Log.e("user_tc",user_tc);
-                        Log.e("user_sicilno",user_sicilno);
-                        Log.e("user_birim",user_birim);
-                        Log.e("user_adres",user_adres);
-                        Log.e("user_telefon",user_telefon);
-                        Log.e("user_lokasyon",user_lokasyon);
-                        Log.e("user_kullaniciadi",user_kullaniciadi);
-                        Log.e("user_sifre",user_sifre);
-                        Log.e("*******","********");
-                    }
+                onLocationChanged(konum);
 
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            } else {
+                Lokasyon.setText("Konum aktif degil");
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<>();
-
-                params.put("user_tc", TCKimlik.getText().toString());
-
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(getContext()).add(istek);
+        }
     }
 
 }
