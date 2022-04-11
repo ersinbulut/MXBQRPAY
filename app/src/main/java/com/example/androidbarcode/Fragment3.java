@@ -102,8 +102,8 @@ public class Fragment3 extends Fragment implements LocationListener {
             public void onClick(View view) {
                 //kayıt güncelleme
                 konumAl();
-                kisiGuncelle();
-
+                //kisiGuncelle();
+                userUpdate();
                 Map<String,Object> bilgiler=new HashMap<>();
                 String id = key;
                 bilgiler.put("id",id);
@@ -223,7 +223,7 @@ public class Fragment3 extends Fragment implements LocationListener {
     }
 
     public void userUpdate(){
-        String url="http://mxbinteractive.com/QRAPP/update_kisiler.php";
+        String url="http://mxbinteractive.com/MXBQRAPP/update_personel.php";
 
         StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -272,7 +272,7 @@ public class Fragment3 extends Fragment implements LocationListener {
         final String kadi=KullaniciAdi.getText().toString().trim();
         final String sifre=Sifre.getText().toString().trim();
 
-        String url="http://mxbinteractive.com/QRAPP/update_kisiler.php";
+        String url="http://mxbinteractive.com/MXBQRAPP/update_personel.php";
 
         StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override

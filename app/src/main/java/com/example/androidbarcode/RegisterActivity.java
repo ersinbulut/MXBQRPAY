@@ -150,7 +150,7 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
     }
 
     public void kisiEkle(){
-        String url="http://mxbinteractive.com/QRAPP/insert_kisiler.php";
+        String url="http://mxbinteractive.com/MXBQRAPP/insert_personel.php";
 
         StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -168,16 +168,16 @@ public class RegisterActivity extends AppCompatActivity implements LocationListe
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params=new HashMap<>();
                 //Kullanıcı bilgileri
-                params.put("user_adsoyad",AdSoyad.getText().toString());
-                params.put("user_tc",TCKimlik.getText().toString());
-                params.put("user_sicilno",SicilNo.getText().toString());
-                params.put("user_birim",Birim.getText().toString());
-                params.put("user_adres",Adres.getText().toString());
-                params.put("user_telefon",Telefon.getText().toString());
-                params.put("user_lokasyon",Lokasyon.getText().toString());
+                params.put("personel_adsoyad",AdSoyad.getText().toString());
+                params.put("personel_tc",TCKimlik.getText().toString());
+                params.put("personel_sicilno",SicilNo.getText().toString());
+                params.put("personel_birim",Birim.getText().toString());
+                params.put("personel_adres",Adres.getText().toString());
+                params.put("personel_telefon",Telefon.getText().toString());
+                params.put("personel_lokasyon",Lokasyon.getText().toString());
                 //Login Bilgileri
-                params.put("user_kullaniciadi",KullaniciAdi.getText().toString());
-                params.put("user_sifre",Sifre.getText().toString());
+                params.put("personel_kullaniciadi",KullaniciAdi.getText().toString());
+                params.put("personel_sifre",Sifre.getText().toString());
 
                 return params;
             }
