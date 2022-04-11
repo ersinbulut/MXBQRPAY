@@ -102,8 +102,8 @@ public class Fragment3 extends Fragment implements LocationListener {
             public void onClick(View view) {
                 //kayıt güncelleme
                 konumAl();
-                //kisiGuncelle();
-                userUpdate();
+                kisiGuncelle();
+                //userUpdate();
                 Map<String,Object> bilgiler=new HashMap<>();
                 String id = key;
                 bilgiler.put("id",id);
@@ -168,6 +168,94 @@ public class Fragment3 extends Fragment implements LocationListener {
         return view;
     }
 
+    public void userUpdate(){
+        String url="http://mxbinteractive.com/MXBQRAPP/update_personel.php";
+
+        StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("Cevap",response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                //Kullanıcı bilgileri
+                params.put("personel_adsoyad", String.valueOf(AdSoyad.getText()));
+                params.put("personel_tc", String.valueOf(TCKimlik.getText()));
+                params.put("personel_sicilno", String.valueOf(SicilNo.getText()));
+                params.put("personel_birim", String.valueOf(Birim.getText()));
+                params.put("personel_adres", String.valueOf(Adres.getText()));
+                params.put("personel_telefon", String.valueOf(Telefon.getText()));
+                params.put("personel_lokasyon", String.valueOf(Lokasyon.getText()));
+                //Login Bilgileri
+                params.put("personel_kullaniciadi", String.valueOf(KullaniciAdi.getText()));
+                params.put("personel_sifre", String.valueOf(Sifre.getText()));
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(getContext()).add(istek);
+        //Toast.makeText(this, "Eklendi..", Toast.LENGTH_SHORT).show();
+
+    }
+
+    public void kisiGuncelle(){
+        final String tc=TCKimlik.getText().toString().trim();
+        final String adsoyad=AdSoyad.getText().toString().trim();
+        final String sicilno=SicilNo.getText().toString().trim();
+        final String birim=Birim.getText().toString().trim();
+        final String adres=Adres.getText().toString().trim();
+        final String telefon=Telefon.getText().toString().trim();
+        final String lokasyon=Lokasyon.getText().toString().trim();
+        final String kadi=KullaniciAdi.getText().toString().trim();
+        final String sifre=Sifre.getText().toString().trim();
+
+        String url="http://mxbinteractive.com/MXBQRAPP/update_personel.php";
+
+        StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.e("Cevap",response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params=new HashMap<>();
+                //Kullanici
+                Personel personel=new Personel();
+                //params.put("user_id", personel.getId());
+                params.put("personel_adsoyad",adsoyad);
+                params.put("personel_tc",tc);
+                params.put("personel_sicilno",sicilno);
+                params.put("personel_birim",birim);
+                params.put("personel_adres",adres);
+                params.put("personel_telefon",telefon);
+                params.put("personel_lokasyon",lokasyon);
+                //Login
+                params.put("personel_kullaniciadi",kadi);
+                params.put("personel_sifre",sifre);
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(getContext()).add(istek);
+        //Toast.makeText(getContext(), "Bilgiler güncellendi..", Toast.LENGTH_SHORT).show();
+    }
+
     @Override
     public void onLocationChanged(Location location) {
 
@@ -222,93 +310,7 @@ public class Fragment3 extends Fragment implements LocationListener {
 
     }
 
-    public void userUpdate(){
-        String url="http://mxbinteractive.com/MXBQRAPP/update_personel.php";
 
-        StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e("Cevap",response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<>();
-                //Kullanıcı bilgileri
-                params.put("user_adsoyad", String.valueOf(AdSoyad.getText()));
-                params.put("user_tc", String.valueOf(TCKimlik.getText()));
-                params.put("user_sicilno", String.valueOf(SicilNo.getText()));
-                params.put("user_birim", String.valueOf(Birim.getText()));
-                params.put("user_adres", String.valueOf(Adres.getText()));
-                params.put("user_telefon", String.valueOf(Telefon.getText()));
-                params.put("user_lokasyon", String.valueOf(Lokasyon.getText()));
-                //Login Bilgileri
-                params.put("user_kullaniciadi", String.valueOf(KullaniciAdi.getText()));
-                params.put("user_sifre", String.valueOf(Sifre.getText()));
-
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(getContext()).add(istek);
-        //Toast.makeText(this, "Eklendi..", Toast.LENGTH_SHORT).show();
-
-    }
-
-    public void kisiGuncelle(){
-        final String tc=TCKimlik.getText().toString().trim();
-        final String adsoyad=AdSoyad.getText().toString().trim();
-        final String sicilno=SicilNo.getText().toString().trim();
-        final String birim=Birim.getText().toString().trim();
-        final String adres=Adres.getText().toString().trim();
-        final String telefon=Telefon.getText().toString().trim();
-        final String lokasyon=Lokasyon.getText().toString().trim();
-        final String kadi=KullaniciAdi.getText().toString().trim();
-        final String sifre=Sifre.getText().toString().trim();
-
-        String url="http://mxbinteractive.com/MXBQRAPP/update_personel.php";
-
-        StringRequest istek=new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.e("Cevap",response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params=new HashMap<>();
-                //Kullanici
-                Personel personel=new Personel();
-                //params.put("user_id", personel.getId());
-                params.put("user_adsoyad", adsoyad);
-                params.put("user_tc",tc);
-                params.put("user_sicilno", sicilno);
-                params.put("user_birim", birim);
-                params.put("user_adres", adres);
-                params.put("user_telefon", telefon);
-                params.put("user_lokasyon", lokasyon);
-                //Login
-                params.put("user_kullaniciadi", kadi);
-                params.put("user_sifre", sifre);
-                return params;
-            }
-        };
-
-        Volley.newRequestQueue(getContext()).add(istek);
-        //Toast.makeText(getContext(), "Bilgiler güncellendi..", Toast.LENGTH_SHORT).show();
-    }
 
     public void konumAl(){
         izinKontrol = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
